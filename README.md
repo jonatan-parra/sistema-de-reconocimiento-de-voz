@@ -3,8 +3,8 @@
 # Proyecto final
 
 ### Integrantes
-Liseth Briceño
-Jonatan Parra
+* Liseth Briceño
+* Jonatan Parra
 
 # Descripción:
 ... en construcción ....

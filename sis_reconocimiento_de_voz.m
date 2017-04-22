@@ -11,9 +11,9 @@ tiempo_grabacion = 2;
 % tiempo_grabacion = input('¿Cuantos segundos quiere grabar?')
 frecuencia_sonido = 44100;
 
-% Preparando para grabar sonido. Verificar que son el segundo y tercer parametro
-grabacion = audiorecorder(frecuencia_sonido, 24, 1); 
-
+% Preparando para grabar sonido. 
+grabacion = audiorecorder(frecuencia_sonido, 24, 1); %  audiorecorder(Fs,nBits,nChannels)
+                                                 
 % Mensajes por consola para marcar inicio y final de la grabacion
 grabacion.StartFcn = 'disp('' iniciando grabación '')';
 grabacion.StopFcn = 'disp('' grabación finalizada '')';
@@ -26,7 +26,6 @@ recordblocking(grabacion, tiempo_grabacion);
 sonido1 = grabacion.getaudiodata();
 
 % Guarda el sonido en formato wav
-%audiowrite (sonido1, frecuencia_sonido, 'grabacion1');
 audiowrite ('grabaciones/grabacion1.wav', sonido1, frecuencia_sonido );
 %which 'grabacion1.wav'; % Muestra la ubicacion del archivo
 input ('Senal capturada');
@@ -37,14 +36,14 @@ recordblocking(grabacion, tiempo_grabacion);
 sonido2 = grabacion.getaudiodata();
 
 % Guarda el sonido en formato wav
-audiowrite ('grabaciones/grabacion2.wav', sonido2, frecuencia_sonido );
-input ('Senal 2 capturada');
+audiowrite ( 'grabaciones/grabacion2.wav', sonido2, frecuencia_sonido );
+input ( 'Senal 2 capturada' );
 
-input ('Presione enter para escuchar la primera grabacion');
-sound(sonido1, frecuencia_sonido);
+input ( 'Presione enter para escuchar la primera grabacion' );
+sound ( sonido1, frecuencia_sonido );
 
-input ('Presione enter para escuchar la segunda grabacion');
-sound(sonido2, frecuencia_sonido);
+input ( 'Presione enter para escuchar la segunda grabacion' );
+sound ( sonido2, frecuencia_sonido );
 
 % temporalmente se estan leyendo los audios
 audio1 = audioread('grabaciones/grabacion1.wav');
@@ -65,6 +64,7 @@ voz2fn = voz2f/sqrt(sum (abs (voz2f).^2)); % Se normaliza el vector
 disp('Diferencia fft (transformada de fourier)');
 disp(mean(abs(voz1-voz2)));
 
+% Correlacion de pearson  http://www.monografias.com/trabajos85/coeficiente-correlacion-karl-pearson/coeficiente-correlacion-karl-pearson.shtml
 disp('Correlacion de Pearson');
 disp(corr(voz1, voz2 ));
 
@@ -72,16 +72,16 @@ disp('Coeficiente de error entre ambas grabaciones:')
 error(1) = mean(abs(voz2-voz1));
 disp(error(1))
 
-subplot(2,5,1),plot(audio1); % Relacion de posicion de la grafica
+subplot(2,4,1),plot(audio1); % Relacion de posicion de la grafica
 title ('Grabacion 1')
 
-subplot(2,5,2), plot(voz1fn); % Espectro de la grabacion 1
+subplot(2,4,2), plot(voz1fn); % Espectro de la grabacion 1
 title ('Espectro de la grabacion 1');
 
-subplot(2,5,3),plot(audio2); % Relacion de posicion de la grafica
+subplot(2,4,3),plot(audio2); % Relacion de posicion de la grafica
 title ('Grabacion 2')
 
-subplot(2,5,4), plot(voz2fn); % Espectro de la grabacion 1
+subplot(2,4,4), plot(voz2fn); % Espectro de la grabacion 1
 title ('Espectro de la grabacion 2');
 
 
