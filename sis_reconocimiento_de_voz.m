@@ -2,6 +2,15 @@
 close all;
 clear all; % Borra las variables del archivo
 clc; % Borra toda la pantalla 
+choice = menu('Bienvenido','Registrarse','Iniciar sesión'); 
+prompt = {'name','password'};
+dlg_title = 'Input';
+num_lines = 1;
+def = {'',''};
+answer = inputdlg(prompt,dlg_title,num_lines,def);
+
+x = str2num(answer{1});
+y = str2num(answer{2});
 
 % tiempo de grabacion
 % tiempo_grabacion = input('¿Cuantos segundos quiere grabar?')
@@ -15,8 +24,18 @@ frecuencia_sonido = 44100;
 grabacion = audiorecorder(frecuencia_sonido, 24, 1); %  audiorecorder(Fs,nBits,nChannels)
                                                  
 % Mensajes por consola para marcar inicio y final de la grabacion
-grabacion.StartFcn = 'disp('' iniciando grabación '')';
-grabacion.StopFcn = 'disp('' grabación finalizada '')';
+
+
+if choice == 1
+    grabacion.StartFcn = 'disp('' iniciando grabación '')';
+    grabacion.StopFcn = 'disp('' grabación finalizada '')';
+    
+else choice == 2
+   
+        
+end
+
+
 
 % Se inicia el programa segun la configuracion anterior
 
