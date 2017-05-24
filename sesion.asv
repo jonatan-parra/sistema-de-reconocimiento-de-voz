@@ -90,32 +90,46 @@ function pushbutton1_Callback(hObject, eventdata, handles)
         disp('Coeficiente de error entre ambas grabaciones:')
         error(1) = mean(abs(voz2-voz1));
         disp(error(1))
-        
         figure(1)   
-        subplot(2,4,1),plot(sonido1); % Relacion de posicion de la grafica
-        title ('Grabacion 1')
-        subplot(2,4,2), plot(voz1fn); % Espectro de la grabacion 1
 
-        title ('Espectro de la grabacion 1');
-        subplot(2,4,3),plot(sonido2); % Relacion de posicion de la grafica
+            subplot(2,4,1),plot(sonido1); % Relacion de posicion de la grafica
+            title ('Grabacion 1')
 
-        title ('Grabacion 2')
-        subplot(2,4,4), plot(voz2fn); % Espectro de la grabacion 1
+            subplot(2,4,2), plot(voz1fn); % Espectro de la grabacion 1
+            title ('Espectro de la grabacion 1');
 
-        title ('Espectro de la grabacion 2');
-        subplot(2,4,5), title('algo') ; % Espectro de la grabacion 1
-   
-        if corr(voz1, voz2 )< 0.4
-            errordlg('No pudo iniciar sesion ', 'Mensaje');
-        else
-            msgbox('Se ha iniciado sesion!! ', 'Mensaje');
-        end        
+            subplot(2,4,3),plot(sonido2); % Relacion de posicion de la grafica
+            title ('Grabacion 2')
+
+            subplot(2,4,4), plot(voz2fn); % Espectro de la grabacion 1
+            title ('Espectro de la grabacion 2');
+
+
+            subplot(2,4,5), title('algo') ; % Espectro de la grabacion 1
+            title ('Login');
+
+
+            disp('salio graficas')
+
+            if corr(voz1, voz2 )< 0.4
+                errordlg('No pudo iniciar sesion ', 'Mensaje');
+                disp('No se pudo iniciar sesion')
+            else
+                msgbox('Se ha iniciado sesion!! ', 'Mensaje');
+                disp('Se pudo iniciar')
+            end        
     end
 
 function edit1_Callback(hObject, eventdata, handles)
 
 % --- Executes during object creation, after setting all properties.
 function edit1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
