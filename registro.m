@@ -43,7 +43,12 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in pushbutton1.
 function pushbutton1_Callback(hObject, eventdata, handles)
-% Preparando para grabar sonido. 
+
+user= get(handles.text5,'String' );
+if isempty(user)
+    warndlg('Ingrese el nombre del usuario', 'Mensaje');
+else 
+    % Preparando para grabar sonido. 
 tiempo_grabacion = 2;
 
 frecuencia_sonido = 44100;
@@ -63,4 +68,12 @@ input ('Presione enter para grabar la primera senal');
         %which 'grabacion1.wav'; % Muestra la ubicacion del archivo
         input ('Senal capturada');
 
-        
+end
+
+       
+
+
+% --- Executes on button press in pushbutton2.
+function pushbutton2_Callback(hObject, eventdata, handles)
+close
+

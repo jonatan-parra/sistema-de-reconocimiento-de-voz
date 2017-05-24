@@ -24,7 +24,7 @@ function varargout = sesion(varargin)
 
 % Edit the above text to modify the response to help sesion
 
-% Last Modified by GUIDE v2.5 19-May-2017 12:02:53
+% Last Modified by GUIDE v2.5 23-May-2017 16:14:27
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -77,7 +77,12 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in pushbutton1.
 function pushbutton1_Callback(hObject, eventdata, handles)
+user= get(handles.edit1,'String' );
+user
+if isempty(user)
+    warndlg('Ingrese el nombre del usuario ', 'Mensaje');
 
+else
  % Graba segunda senal
         tiempo_grabacion = 2;
 
@@ -163,12 +168,14 @@ grabacion.StopFcn = 'disp('' grabación finalizada '')';
         disp('salio graficas')
         
         if corr(voz1, voz2 )< 0.4
+            errordlg('No pudo iniciar sesion ', 'Mensaje');
             disp('No se pudo iniciar sesion')
         else
+            msgbox('Se ha iniciado sesion!! ', 'Mensaje');
             disp('Se pudo iniciar')
         end
 
-
+end
 function edit1_Callback(hObject, eventdata, handles)
 % hObject    handle to edit1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -189,3 +196,8 @@ function edit1_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in pushbutton3.
+function pushbutton3_Callback(hObject, eventdata, handles)
+close
