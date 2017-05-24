@@ -36,11 +36,13 @@ function pushbutton1_Callback(hObject, eventdata, handles)
     if isempty(user)
         warndlg('Ingrese el nombre del usuario', 'Mensaje');
     else 
+        ruta = strcat('grabaciones/',user, '.wav') 
+
         % Preparando para grabar sonido. 
         tiempo_grabacion = 2;
         frecuencia_sonido = 44100;
         grabacion = audiorecorder(frecuencia_sonido, 24, 1); 
-        
+
         % Mensajes por consola para marcar inicio y final de la grabacion
         grabacion.StartFcn = 'disp('' iniciando grabación '')';
         grabacion.StopFcn = 'disp('' grabación finalizada '')';
@@ -48,10 +50,12 @@ function pushbutton1_Callback(hObject, eventdata, handles)
         input ('Presione enter para grabar la primera senal');
         recordblocking(grabacion, tiempo_grabacion);
         sonido1 = grabacion.getaudiodata();
+
         % Guarda el sonido en formato wav
-        audiowrite ('grabaciones/grabacion1.wav', sonido1, frecuencia_sonido );
+        audiowrite (ruta, sonido1, frecuencia_sonido );
+
         %which 'grabacion1.wav'; % Muestra la ubicacion del archivo
-        input ('Senal capturada');
+        input ('Senal capturada');   
 end
 
 % --- Executes on button press in pushbutton2.

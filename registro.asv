@@ -36,25 +36,28 @@ function pushbutton1_Callback(hObject, eventdata, handles)
     if isempty(user)
         warndlg('Ingrese el nombre del usuario', 'Mensaje');
     else 
-        % Preparando para grabar sonido. 
-        tiempo_grabacion = 2;
+        ruta = strcat('grabaciones/',user, '.wav') 
+        if exist(ruta) = 0   % Verifica que exista el usuario
+            % Preparando para grabar sonido. 
+            tiempo_grabacion = 2;
+            frecuencia_sonido = 44100;
+            grabacion = audiorecorder(frecuencia_sonido, 24, 1); 
 
-        frecuencia_sonido = 44100;
+            % Mensajes por consola para marcar inicio y final de la grabacion
+            grabacion.StartFcn = 'disp('' iniciando grabación '')';
+            grabacion.StopFcn = 'disp('' grabación finalizada '')';
 
-        grabacion = audiorecorder(frecuencia_sonido, 24, 1); %  audiorecorder(Fs,nBits,nChannels)
+            input ('Presione enter para grabar la primera senal');
+            recordblocking(grabacion, tiempo_grabacion);
+            sonido1 = grabacion.getaudiodata();
 
-        % Mensajes por consola para marcar inicio y final de la grabacion
+            % Guarda el sonido en formato wav
+            audiowrite (ruta, sonido1, frecuencia_sonido );
 
-        grabacion.StartFcn = 'disp('' iniciando grabación '')';
-        grabacion.StopFcn = 'disp('' grabación finalizada '')';
-
-        input ('Presione enter para grabar la primera senal');
-                recordblocking(grabacion, tiempo_grabacion);
-                sonido1 = grabacion.getaudiodata();
-                % Guarda el sonido en formato wav
-                audiowrite ('grabaciones/grabacion1.wav', sonido1, frecuencia_sonido );
-                %which 'grabacion1.wav'; % Muestra la ubicacion del archivo
-                input ('Senal capturada');
+            %which 'grabacion1.wav'; % Muestra la ubicacion del archivo
+            input ('Senal capturada');      
+        end
+        
 
 end
 
