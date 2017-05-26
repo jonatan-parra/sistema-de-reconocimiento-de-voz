@@ -63,10 +63,14 @@ end
 
 % --- Executes on button press in pushbutton1.
 function pushbutton1_Callback(hObject, eventdata, handles)
+close;
 registro;
 
+
 function pushbutton6_Callback(hObject, eventdata, handles)
+close;
 sesion;
+
 
 % --- Executes on button press in pushbutton7.
 function pushbutton7_Callback(hObject, eventdata, handles)

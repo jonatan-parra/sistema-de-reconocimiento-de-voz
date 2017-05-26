@@ -39,27 +39,43 @@ function pushbutton1_Callback(hObject, eventdata, handles)
         ruta = strcat('grabaciones/',user, '.wav') 
 
         % Preparando para grabar sonido. 
+        
         tiempo_grabacion = 2;
         frecuencia_sonido = 44100;
+        %frecuencia_sonido = 22050;
         grabacion = audiorecorder(frecuencia_sonido, 24, 1); 
 
         % Mensajes por consola para marcar inicio y final de la grabacion
-        grabacion.StartFcn = 'disp('' iniciando grabación '')';
-        grabacion.StopFcn = 'disp('' grabación finalizada '')';
+      %  grabacion.StartFcn = 'disp('' iniciando grabación '')';
+       % grabacion.StopFcn = 'disp('' grabación finalizada '')';
 
-        input ('Presione enter para grabar la primera senal');
+        %input ('Presione enter para grabar la primera senal');
+        
+        set(handles.text6,'String','Grabando...' );
+
         recordblocking(grabacion, tiempo_grabacion);
+        set(handles.text6,'String','Terminado' );
+
         sonido1 = grabacion.getaudiodata();
 
         % Guarda el sonido en formato wav
         audiowrite (ruta, sonido1, frecuencia_sonido );
 
         %which 'grabacion1.wav'; % Muestra la ubicacion del archivo
-        input ('Senal capturada');   
+        %input ('Senal capturada');   
 end
 
 % --- Executes on button press in pushbutton2.
 function pushbutton2_Callback(hObject, eventdata, handles)
 %Cierra la ventana    
 close
+base;
 
+
+
+% --- Executes on mouse press over figure background, over a disabled or
+% --- inactive control, or over an axes background.
+function figure1_WindowButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

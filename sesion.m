@@ -43,31 +43,39 @@ function pushbutton1_Callback(hObject, eventdata, handles)
         warndlg('Ingrese el nombre del usuario ', 'Mensaje');
     else
         ruta = strcat('grabaciones/',user, '.wav') 
+        ruta
         if exist(ruta) == 0 % Verifica que el usuario exista
             warndlg('El usuario no existe', 'Mensaje');
         else
             % Graba segunda senal
             tiempo_grabacion = 2;
             frecuencia_sonido = 44100;
+            %frecuencia_sonido = 22050;
             grabacion = audiorecorder(frecuencia_sonido, 24, 1); %  audiorecorder(Fs,nBits,nChannels)
 
             % Mensajes por consola para marcar inicio y final de la grabacion
             grabacion.StartFcn = 'disp('' iniciando grabación '')';
             grabacion.StopFcn = 'disp('' grabación finalizada '')';
 
-            input (' Presione enter para grabar la segunda senal')  
+            %input (' Presione enter para grabar la segunda senal')  
+            
+            set(handles.text4,'String','Grabando...' );
             recordblocking(grabacion, tiempo_grabacion);
+            set(handles.text4,'String','Terminado' );
+            
             sonido2 = grabacion.getaudiodata();
             %audiowrite ( 'grabaciones/grabacion2.wav', sonido2, frecuencia_sonido );    
-            input ( 'Senal 2 capturada' );
+            %input ( 'Senal 2 capturada' );
 
             ruta = strcat('grabaciones/',user, '.wav') 
             sonido1 = audioread(ruta);
 
-            input ( 'Presione enter para escuchar la primera grabacion' );
+            %input ( 'Presione enter para escuchar la primera grabacion' );
+            pause(2)
             sound ( sonido1, frecuencia_sonido );
 
-            input ( 'Presione enter para escuchar la segunda grabacion' );
+            %input ( 'Presione enter para escuchar la segunda grabacion' );
+            pause(2)
             sound ( sonido2, frecuencia_sonido );
 
             sonido1 = normalizar(sonido1);
@@ -89,23 +97,36 @@ function pushbutton1_Callback(hObject, eventdata, handles)
             disp('Correlacion de Pearson');
             disp(corr(voz1, voz2 ));
 
-            disp('Coeficiente de error entre ambas grabaciones:')
-            error(1) = mean(abs(voz2-voz1));
-            disp(error(1))
+           % disp('Coeficiente de error entre ambas grabaciones:')
+           % error(1) = mean(abs(voz2-voz1));
+           % disp(error(1))
 
             figure(1)   
-            subplot(2,4,1),plot(sonido1); % Relacion de posicion de la grafica
+            subplot(2,3,1),plot(sonido1); % Relacion de posicion de la grafica
             title ('Grabacion 1')
-            subplot(2,4,2), plot(voz1fn); % Espectro de la grabacion 1
+            subplot(2,3,5), plot(voz1fn); % Espectro de la grabacion 1
 
             title ('Espectro de la grabacion 1');
-            subplot(2,4,3),plot(sonido2); % Relacion de posicion de la grafica
+            subplot(2,3,2),plot(sonido2); % Relacion de posicion de la grafica
 
             title ('Grabacion 2')
-            subplot(2,4,4), plot(voz2fn); % Espectro de la grabacion 1
+            subplot(2,3,4), plot(voz2fn); % Espectro de la grabacion 1
 
             title ('Espectro de la grabacion 2');
-            subplot(2,4,5), title('algo') ; % Espectro de la grabacion 1
+            
+            
+            Fmuestra = fft(sonido1);
+            Fusuario = fft(sonido2);
+
+            subplot(2, 3, 3)
+            plot(abs(Fusuario))
+            hold on
+            plot(abs(Fmuestra))
+            
+            title('Frecuencias');
+            legend('Sesión','Registrada');
+
+
 
             if corr(voz1, voz2 )< 0.4
                 errordlg('No pudo iniciar sesion ', 'Mensaje');
@@ -127,3 +148,4 @@ end
 % --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(hObject, eventdata, handles)
 close
+base;
